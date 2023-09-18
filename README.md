@@ -17,7 +17,7 @@ be fetched automatically and used to extract path information.
 
 ## Running the data process
 
-To fetch the source data, run this in the main directory of this repo:
+To fetch the source .OSM.PBF file, run this in the main directory of this repo:
 
     docker-compose run osw_data fetch /input/config.geojson
 
