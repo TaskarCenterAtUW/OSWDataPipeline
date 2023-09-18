@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "osw_data"
+version = "1.0.0"
+description = ""
+authors = ["TCAT <uwtcat@uw.edu>"]
+license = "Apache-2.0"
+
+[tool.poetry.scripts]
+osw_data = "osw_data:cli.osw_data"
+
+[tool.poetry.dependencies]
+python = "^3.8,<3.10"
+marshmallow = "^3.13.0"
+networkx = "^2.6.3"
+click = "^8.0.1"
+osmium = "^3.2.0"
+pyproj = "^3.2.0"
+Shapely = "^1.7.1"
+requests = "^2.26.0"
+numpy = "^1.21.2"
+scipy = "^1.7.1"
+rasterio = "^1.2.8"
+utm = "^0.7.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.12b0"
+
+[tool.black]
+line-length = 79
+exclude = """
+(
+  setup.py
+)
+"""
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

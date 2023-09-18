@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  osw_data:
+    build: .
+    entrypoint: "osw_data"
+    environment:
+      - OSW_DATA_WORKDIR=/output
+    volumes:
+        - ./input:/input:ro
+        - ./output:/output:rw
