@@ -10,6 +10,8 @@ import click
 import rasterio
 from shapely.geometry import shape
 
+from osw_data.osm.write import osm_write
+
 from .constants import BUFFER_DIST, TMP_DIR
 from .dems.transforms import get_ned13_for_bounds, infer_incline, list_ned13s
 from .dems.mask_dem import (
@@ -435,9 +437,26 @@ def validate(config: str, workdir: str) -> None:
             exit(1)
 
         # validate points
-        is_valid = validate_osw_errors(load_file(graph_points_geojson_path), schema)
-        if is_valid:
-            click.echo(f"OSW points are valid for {region_id}")
-        else:
-            click.echo(f"OSW points failed validation for {region_id}")
-            exit(1)
+        if graph_points_geojson_path.exists():
+            is_valid = validate_osw_errors(load_file(graph_points_geojson_path), schema)
+            if is_valid:
+                click.echo(f"OSW points are valid for {region_id}")
+            else:
+                click.echo(f"OSW points failed validation for {region_id}")
+                exit(1)
+
+
+@osw_data.command()
+@click.argument("config", type=click.Path())
+@click.option("--workdir", envvar="OSW_DATA_WORKDIR", default=TMP_DIR)
+def toosmxml(config: str, workdir: str) -> None:
+    config = ConfigSchema.dict_from_filepath(config)
+
+    for region in config["features"]:
+        region_id = region["properties"]["id"]
+
+        click.echo(f"Converting OSW data to OSM.XML file for {region_id}...")
+        osm_write(
+            region_id,
+            workdir
+        )

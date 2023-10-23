@@ -87,7 +87,8 @@ def buffer_multipolygon(geojson_geom, buffer):
     multipolygon = shape(utm_multipolygon)
     buffered = multipolygon.buffer(buffer)
 
-    if buffered.type == "Polygon":
+    # Addressed ShapelyDeprecationWarning: The 'type' attribute is deprecated, and will be removed in the future. You can use the 'geom_type' attribute instead.
+    if buffered.geom_type == "Polygon":
         buffered = MultiPolygon([buffered])
 
     buffered_geojson = mapping(buffered)

@@ -1,10 +1,16 @@
-FROM python:3.8-buster
+FROM python:3.8
 
 ARG GIT_BRANCH="Audiom"
 #Change to HEAD in the future once normalizer is based on schema
 ARG GIT_HASH="0e7ba02911b2c7937096317a895c121639d7ed02"
 
 RUN apt-get update && apt-get install -y osmium-tool osmosis
+
+RUN apt-get update && apt-get  install -y \
+        gdal-bin \
+        libgdal-dev \
+        python3-gdal
+
 
 RUN mkdir /app
 WORKDIR /app

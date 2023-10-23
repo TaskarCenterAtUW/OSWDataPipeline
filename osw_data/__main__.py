@@ -1,4 +1,4 @@
-"""unweaver CLI helper entry point."""
+"""CLI helper entry point."""
 from osw_data import cli
 
 if __name__ == "__main__":
