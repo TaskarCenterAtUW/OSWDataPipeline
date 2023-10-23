@@ -32,3 +32,7 @@ To build/process the data into an OpenSidewalks-compatible format, run this in t
 To validate the generated OpenSidewalks data against the schema run:
 
     docker-compose run osw_data validate /input/config.geojson
+
+To convert the generated OpenSidewalks data to OSM XML format:
+
+    docker-compose run osw_data toosmxml /input/config.geojson
